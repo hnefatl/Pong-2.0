@@ -48,7 +48,7 @@ bool Texture::Load(const std::string &Path, SDL_Renderer *const Renderer)
 	Print("Loaded image from \""+Path+"\".");
 	return true;
 }
-bool Texture::Load(const std::string &Text, const std::string &FontFile, const unsigned int &Size, const SDL_Color &TextColour, SDL_Renderer *const Renderer)
+bool Texture::Load(const std::string &Text, const std::string &FontFile, const unsigned int &Size, const Colour &TextColour, SDL_Renderer *const Renderer)
 {
 	Free();
 	TTF_Font *Font=TTF_OpenFont(FontFile.c_str(), Size);
@@ -84,42 +84,40 @@ Texture *Texture::Create(const std::string &Path, SDL_Renderer *const Renderer)
 	New->Load(Path, Renderer);
 	return New;
 }
-Texture *Texture::Create(const std::string &Text, const std::string &FontFile, const unsigned int &Size, const SDL_Color &TextColour, SDL_Renderer *const Renderer)
+Texture *Texture::Create(const std::string &Text, const std::string &FontFile, const unsigned int &Size, const Colour &TextColour, SDL_Renderer *const Renderer)
 {
 	Texture *New=new Texture();
 	New->Load(Text, FontFile, Size, TextColour, Renderer);
 	return New;
 }
 
-void Texture::Render(SDL_Renderer *const Renderer, const int &x, const int &y)
+void Texture::Render(SDL_Renderer *const Renderer, const Point &Position)
 {
-	return Render(Renderer, x, y, NULL, 0.0, NULL, SDL_RendererFlip());
+	return Render(Renderer, Position, NULL, 0.0, NULL, SDL_RendererFlip());
 }
-void Texture::Render(SDL_Renderer *const Renderer, const int &x, const int &y, const SDL_RendererFlip &Flip)
+void Texture::Render(SDL_Renderer *const Renderer, const Point &Position, const SDL_RendererFlip &Flip)
 {
-	return Render(Renderer, x, y, NULL, 0.0, NULL, Flip);
+	return Render(Renderer, Position, NULL, 0.0, NULL, Flip);
 }
-void Texture::Render(SDL_Renderer *const Renderer, const int &x, const int &y, const double &Angle, SDL_Point *const Centre)
+void Texture::Render(SDL_Renderer *const Renderer, const Point &Position, const double &Angle, Point *const Centre)
 {
-	return Render(Renderer, x, y, NULL, Angle, Centre, SDL_RendererFlip());
+	return Render(Renderer, Position, NULL, Angle, Centre, SDL_RendererFlip());
 }
-void Texture::Render(SDL_Renderer *const Renderer, const int &x, const int &y, const double &Angle, SDL_Point *const Centre, const SDL_RendererFlip &Flip)
+void Texture::Render(SDL_Renderer *const Renderer, const Point &Position, const double &Angle, Point *const Centre, const SDL_RendererFlip &Flip)
 {
-	return Render(Renderer, x, y, NULL, Angle, Centre, Flip);
+	return Render(Renderer, Position, NULL, Angle, Centre, Flip);
 }
-void Texture::Render(SDL_Renderer *const Renderer, const int &x, const int &y, SDL_Rect *const Clip)
+void Texture::Render(SDL_Renderer *const Renderer, const Point &Position, Rect *const Clip)
 {
-	return Render(Renderer, x, y, Clip, 0.0, NULL, SDL_RendererFlip());
+	return Render(Renderer, Position, Clip, 0.0, NULL, SDL_RendererFlip());
 }
-void Texture::Render(SDL_Renderer *const Renderer, const int &x, const int &y, SDL_Rect *const Clip, const double &Angle, SDL_Point *const Centre)
+void Texture::Render(SDL_Renderer *const Renderer, const Point &Position, Rect *const Clip, const double &Angle, Point *const Centre)
 {
-	return Render(Renderer, x, y, Clip, Angle, Centre, SDL_RendererFlip());
+	return Render(Renderer, Position, Clip, Angle, Centre, SDL_RendererFlip());
 }
-void Texture::Render(SDL_Renderer *const Renderer, const int &x, const int &y, SDL_Rect *const Clip, const double &Angle, SDL_Point *const Centre, const SDL_RendererFlip &Flip)
+void Texture::Render(SDL_Renderer *const Renderer, const Point &Position, Rect *const Clip, const double &Angle, Point *const Centre, const SDL_RendererFlip &Flip)
 {
-	SDL_Rect RenderQuad;
-	RenderQuad.x=x;
-	RenderQuad.y=y;
+	SDL_Rect RenderQuad=Rect(Position);
 	if(Clip!=NULL)
 	{
 		RenderQuad.w=Clip->w;
@@ -134,10 +132,10 @@ void Texture::Render(SDL_Renderer *const Renderer, const int &x, const int &y, S
 	SDL_RenderCopyEx(Renderer, Image, Clip, &RenderQuad, Angle, Centre, Flip);
 }
 
-void Texture::SetColour(const unsigned int &Red, const unsigned int &Green, const unsigned int &Blue, const unsigned int &Alpha)
+void Texture::SetColour(const Colour &Colour)
 {
-	SDL_SetTextureColorMod(Image, (Uint8)Red, (Uint8)Green, (Uint8)Blue);
-	SDL_SetTextureAlphaMod(Image, (Uint8)Alpha);
+	SDL_SetTextureColorMod(Image, Colour.r, Colour.g, Colour.b);
+	SDL_SetTextureAlphaMod(Image, Colour.a);
 }
 void Texture::SetBlendMode(const SDL_BlendMode &Mode)
 {

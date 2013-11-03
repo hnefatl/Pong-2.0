@@ -19,7 +19,7 @@ SDLWindow::~SDLWindow()
 
 bool SDLWindow::Create(const unsigned int &Width, const unsigned int &Height, const std::string &Title,const SDL_WindowFlags &Flags)
 {
-	if(SDL_Init(SDL_INIT_VIDEO)<0)
+	if(SDL_Init(SDL_INIT_EVERYTHING)<0)
 	{
 		return false;
 	}
