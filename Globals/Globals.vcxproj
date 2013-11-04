@@ -16,6 +16,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="Print.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="Resources.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>

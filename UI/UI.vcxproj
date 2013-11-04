@@ -11,10 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Control.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="Screen.h" />
+    <ClInclude Include="TransitioningControl.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Control.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="TransitioningControl.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{16873EF0-1B9B-430A-9B3F-A1C488FB8CB9}</ProjectGuid>
